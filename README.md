@@ -12,6 +12,7 @@
 | [`mattpocock_skill/`](mattpocock_skill/) | Engineering skills: grilling, spec/ticket flow, TDD, code review, domain modeling ฯลฯ |
 | [`9arm-skills/`](9arm-skills/) | debug-mantra, post-mortem, scrutinize, qwen-agent, management-talk, qwenchance |
 | [`andrej-karpathy-skills/`](andrej-karpathy-skills/) | karpathy-guidelines: แนวปฏิบัติลดข้อผิดพลาดที่ LLM มักทำตอนเขียนโค้ด |
+| [`cntagram-skills/`](cntagram-skills/) | ชุดที่ใช้จริงในโปรเจค cntagram (Django): รวม/แก้จาก 3 แหล่งข้างบน พร้อม `AGENTS.md` ที่กำหนดว่าใช้ skill ไหนตอนไหน และกฎ tune skill ทุกครั้งที่พลาด อ่านวิธีใช้ที่ [`skills/README.md`](cntagram-skills/skills/README.md) |
 
 เริ่มจาก [`SKILL-MAP.md`](SKILL-MAP.md) ก่อน
 
@@ -31,6 +32,7 @@ skills ในแต่ละโฟลเดอร์เป็นผลงาน�
 
 - `9arm-skills/skills/engineering/{debug-mantra,post-mortem,scrutinize}/` — เปลี่ยนชื่อ `SKILL.md` เป็น `<ชื่อ>_SKILL.md`
 - `mattpocock_skill/skills/CLAUDE.md` — เพิ่มไฟล์ใหม่
+- `cntagram-skills/` — สำเนาจาก `cntagram/.claude/skills/` และ `cntagram/AGENTS.md` (cntagram commit `5ff1cfe` + การแก้ที่ยังไม่ commit) ไม่ใช่สำเนา upstream ให้อัปเดตด้วยการ copy จากโปรเจค cntagram ทับ
 
 ## อัปเดตจาก upstream
 
