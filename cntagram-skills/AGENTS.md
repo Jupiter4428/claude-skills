@@ -10,6 +10,16 @@ Before starting any task:
 2. Load that skill (Claude Code: the Skill tool; other agents: read its `SKILL.md` in full, plus any files it links to) before writing code or docs.
 3. Follow its steps. If you skip or deviate from a step, say so and why.
 
+## Review loop
+
+A code change is done only after **two review rounds**. Once the work is built and its tests pass:
+
+1. **Review.** Load `code-review` with fixed point `develop`. If the work is uncommitted, include the working tree: diff against `git merge-base develop HEAD`, not `HEAD`.
+2. **Fix.** Fix every blocker and major finding (behaviour changes go through `tdd`); fix each nit or state why it stays. Done when the tests pass again.
+3. **Repeat** steps 1–2 once more as round 2.
+
+When reporting back, list per round: findings, what you fixed, and what you left and why.
+
 While working, **tune the skill on every miss**: when an error, a failed check, or a user correction traces back to a skill (a step that was wrong, missing, or easy to misread), fix that skill's `SKILL.md` before moving on. Load `writing-for-agents`, make the smallest edit that would have prevented the miss, keep it in its own `chore(skills): ...` commit, and name the edit in your next message. Misses with no skill behind them (a typo, a one-off code bug) leave the skills as they are.
 
 | Situation | Skill |
