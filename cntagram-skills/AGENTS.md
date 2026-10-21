@@ -38,12 +38,11 @@ Situation-by-situation guide: `.claude/skills/README.md`.
 
 ## Review loop
 
-A code change is done only after **two review rounds**. Once the work is built and its tests pass:
+A code change is done only after **one review round**. Once the work is built and its tests pass:
 
 1. **Review.** Load `code-review` with fixed point `develop`. If the work is uncommitted, include the working tree: diff against `git merge-base develop HEAD`, not `HEAD`.
 2. **Fix.** Fix every blocker and major finding (behaviour changes go through `tdd`); fix each nit or state why it stays. Done when the tests pass again.
-3. **Repeat** steps 1–2 once more as round 2.
 
-A finding that needs a human decision (a product call, a trade-off, a spec ambiguity) goes on a **parked** list; keep going with the rest of the cycle. Ask the parked questions only after round 2 ends.
+A finding that needs a human decision (a product call, a trade-off, a spec ambiguity) goes on a **parked** list; keep going with the rest of the cycle. Ask the parked questions only after the round ends.
 
-When reporting back, list per round: findings, what you fixed, and what you left and why; then the parked questions.
+When reporting back, list the findings, what you fixed, and what you left and why; then the parked questions.
