@@ -54,7 +54,7 @@ Commit locally, then stop and hand the work to the human for review: the commits
 
 Every slice's code, tests included, follows this repo's Django conventions. This is the summary; the full rules and their reasons live in `CONTRIBUTING.md` under "สถาปัตยกรรมและการจัดวางโค้ด" and "มาตรฐานโค้ด Django".
 
-- **Stack**: Python 3.12, Django 6.1, function-based views by default, Bootstrap 5.
+- **Stack**: Python 3.12, Django 6.1, function-based views by default, team CSS in `static/css/retro.css`. Templates are _sketch-first_: semantic HTML with meaning-based classes and full behaviour, styling added later (`CONTRIBUTING.md` "Templates", ADR 0004).
 - **Layers**: business logic and writes go in `services.py`, wrapped in `@transaction.atomic`; read queries go in `selectors.py`. Views stay _thin_: input → service/selector → response.
 - **Queries**: preload related rows with `select_related` (FK, one-to-one) or `prefetch_related` (M2M, reverse FK) so list pages have no N+1. Every query goes through the ORM; no raw SQL.
 - **Imports** flow one way, `catalog` ← `accounts` ← `materials`: `materials` may import both, `accounts` may import `catalog`, `catalog` imports neither.
