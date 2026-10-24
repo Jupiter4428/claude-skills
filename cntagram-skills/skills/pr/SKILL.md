@@ -57,6 +57,7 @@ Turn `code-review` findings into one review comment, in Thai, shaped like the re
 
 > เลขบรรทัดอ้างอิง commit `<head sha>`
 > <test count on the branch, and on the tree merged with `develop`>
+> โค้ดในหัวข้อ **แก้:** เป็นคำแนะนำในการแก้ ถ้ามีวิธีอื่นที่ได้ผลเดียวกันก็ใช้ได้เลยครับ
 
 ## ต้องแก้ก่อน merge
 ### 1. `<file>` L<start>–<end>: <what is wrong, in a few words>
@@ -71,9 +72,13 @@ Turn `code-review` findings into one review comment, in Thai, shaped like the re
 ## Test ที่ยังขาด (`<tests file>`)
 ## Nit
 ## เปิด issue แยกไว้แล้ว (ไม่ต้องทำใน PR นี้)
+
+---
+ย้ำอีกครั้ง: ทุก **แก้:** ในรีวิวนี้เป็นคำแนะนำในการแก้ ไม่ต้องทำตามทุกบรรทัด ขอแค่ปัญหาของแต่ละข้อหายไป
 ```
 
 - Every finding names a file and line at the pinned commit, and every blocker or ควรแก้ finding carries a **แก้:** block with code; drop a section left empty.
+- Every review opens and closes with the line that the **แก้:** code is a suggestion (the last line of the blockquote, and the closing line after `---`), so the author reads the fixes as advice before and after the findings.
 
 - Plain Thai headings and wording; review jargon ("blocking", "nit", "ฝากไว้") becomes what it means for the author.
 - A finding the user defers gets a real issue first (milestone and assignee as the user says), then appears only in the last section as `#N` plus one line. Every deferred finding links to its issue number.
