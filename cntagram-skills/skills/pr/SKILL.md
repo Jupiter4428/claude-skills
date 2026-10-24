@@ -50,18 +50,35 @@ Refs #<issue>
 
 ## Drafting a review
 
-Turn `code-review` findings into one review comment, in Thai, under these three headings in order:
+Turn `code-review` findings into one review comment, in Thai, shaped like the reviews on #49 and #56 (`gh pr view <n> --json reviews`):
 
 ```markdown
+<one or two lines: what already works, and whether it can merge>
+
+> เลขบรรทัดอ้างอิง commit `<head sha>`
+> <test count on the branch, and on the tree merged with `develop`>
+
 ## ต้องแก้ก่อน merge
-## แนะนำ (ไม่ต้องแก้ก่อน merge)
+### 1. `<file>` L<start>–<end>: <what is wrong, in a few words>
+<the current code, quoted>
+<why it matters: the rule broken or the input that breaks it>
+
+**แก้:**
+<the fix as code>
+
+## ควรแก้
+### `<file>` L<n>: <title>   (same shape, unnumbered)
+## Test ที่ยังขาด (`<tests file>`)
+## Nit
 ## เปิด issue แยกไว้แล้ว (ไม่ต้องทำใน PR นี้)
 ```
+
+- Every finding names a file and line at the pinned commit, and every blocker or ควรแก้ finding carries a **แก้:** block with code; drop a section left empty.
 
 - Plain Thai headings and wording; review jargon ("blocking", "nit", "ฝากไว้") becomes what it means for the author.
 - A finding the user defers gets a real issue first (milestone and assignee as the user says), then appears only in the last section as `#N` plus one line. Every deferred finding links to its issue number.
 - A finding the user drops leaves the draft entirely.
-- Draft to the scratchpad; post with `gh pr review <n> --request-changes|--comment --body-file` once the user says to.
+- Draft to the scratchpad; post with `gh pr review <n> --request-changes|--comment --body-file` once the user says to. To replace your earlier review, overwrite its body instead: `gh api -X PUT repos/{owner}/{repo}/pulls/<n>/reviews/<review id> -F body=@<file>`.
 
 ## Answering review comments
 
