@@ -36,6 +36,7 @@ When the shape of that interface is itself in question (how deep the module is, 
 - **Red before green.** Write the failing test first, then only enough code to pass it. Don't anticipate future tests or add speculative features.
 - **One slice at a time.** One seam, one test, one minimal implementation per cycle.
 - **Refactoring is not part of the loop.** It belongs to the review stage (see the `code-review` skill), not the red → green implementation cycle.
+- **Size the test run to the blast radius.** Before running tests, list what the change could break. A _contained_ change stays inside one app's page (its template, JS, view or form) and touches no model, migration, service, settings, shared template or URL another app uses: run only the tests covering that list (e.g. `python manage.py test materials.tests.test_views`) and name the list and the command in the hand-off. Any wider change runs the full suite before hand-off.
 - **Every branch gets a test.** Each branch the change adds or keeps is covered before hand-off. When no real input reaches it, drive it from an external boundary (`default_storage`, email, time) with `side_effect`. A test that mocked our own code is rewritten through a real input, never just deleted. Only a branch neither route reaches goes to the human, as "delete this code or keep it", with the reason.
 
 ## When the feature is done
