@@ -16,7 +16,7 @@ Refs #<issue>
 
 > PR นี้เป็นฝั่ง Backend ส่วน Frontend (@<owner>) จะเปิด PR แยกจาก `develop` หลัง PR นี้ merge แล้ว และใส่ `Closes #<issue>`
 
-## สรุป (Backend)
+## Summary of Changes (Backend)
 <one sentence: what the user can now do>
 - `forms.py`: <each form, what it validates, the Thai error it shows>
 - `services.py` / `selectors.py`: <each function and the rule or query trick it carries (N+1, index)>
@@ -34,21 +34,28 @@ Refs #<issue>
 ## ข้อควรรู้
 - <deviations from the issue wording, known gaps, TODOs left for another story>
 
-## ทดสอบ
+## วิธีทดสอบ
 `python manage.py test <app>` <N> tests OK
+
+## Checklist (Definition of Done)
+<CONTRIBUTING's DoD list, copied as-is>
 ```
 
 ## Rules
 
 - **Issue link**: `Refs #N` while the story still has work in another PR (usually the Frontend one); `Closes #N` goes on the PR that finishes the story. Drop the blockquote note when one PR covers the whole story, and title the sections without "(Backend)".
 - **Issue checklist**: a split story's issue carries one line per side, as CONTRIBUTING ("Story ที่มีทั้งงาน Backend และ Frontend") asks: `- [ ] Backend #<PR>` / `- [ ] Frontend #<PR>`, or `(ยังไม่เปิด PR)` for a side with no PR yet. Opening a PR adds its line and a merge ticks it. Show the user the issue edit and apply it once they agree.
-- **สรุป**: one bullet per file or layer, saying what it holds and the decision behind it. Name real functions, forms and URLs.
+- **Headings**: `## Summary of Changes`, `## วิธีทดสอบ` and `## Checklist (Definition of Done)` are the ones CONTRIBUTING ("Pull Request และ Code Review") requires; reviewers check for them.
+- **Summary of Changes**: one bullet per file or layer, saying what it holds and the decision behind it. Name real functions, forms and URLs.
 - **AC**: copy the issue's Acceptance Criteria word for word; tick only the ones a test or traced code path proves.
 - **ข้อควรรู้**: every place the code departs from the issue, every known risk left unfixed, and every TODO, so the reviewer reads them before the diff.
-- **ทดสอบ**: the exact command and the real count from the last run.
+- **วิธีทดสอบ**: the exact command and the real count from the last run.
+- **Checklist (Definition of Done)**: tick only what you checked; an unchecked line says why in brackets.
 - Write the body to a file in the scratchpad and pass it with `gh pr create/edit --body-file`.
 
 ## Drafting a review
+
+First read the PR's earlier reviews (`gh pr view <n> --json reviews`). Each finding carries an earlier round's call forward: one already marked "ไม่ต้องแก้ใน PR นี้" stays there, and reversing a call means saying so in the finding, with the reason.
 
 Turn `code-review` findings into one review comment, in Thai, shaped like the reviews on #49 and #56 (`gh pr view <n> --json reviews`):
 
@@ -70,7 +77,7 @@ Turn `code-review` findings into one review comment, in Thai, shaped like the re
 ## ควรแก้
 ### `<file>` L<n>: <title>   (same shape, unnumbered)
 ## Test ที่ยังขาด (`<tests file>`)
-## Nit
+## คำแนะนำในการเขียนโค้ด
 ## เปิด issue แยกไว้แล้ว (ไม่ต้องทำใน PR นี้)
 
 ---
