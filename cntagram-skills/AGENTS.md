@@ -40,9 +40,13 @@ Situation-by-situation guide: `.claude/skills/README.md`.
 
 A code change is done only after **one review round**. Once the work is built and its tests pass:
 
-1. **Review.** Load `code-review` with fixed point `develop`. If the work is uncommitted, include the working tree: diff against `git merge-base develop HEAD`, not `HEAD`.
+1. **Review.** Load `code-review` with fixed point `main`. If the work is uncommitted, include the working tree: diff against `git merge-base main HEAD`, not `HEAD`.
 2. **Fix.** Fix every blocker and major finding (behaviour changes go through `tdd`); fix each nit or state why it stays. Done when the tests pass again.
 
 A finding that needs a human decision (a product call, a trade-off, a spec ambiguity) goes on a **parked** list; keep going with the rest of the cycle. Ask the parked questions only after the round ends, each as a multiple choice: 2–4 concrete options with their trade-offs, your pick listed first and marked **(Recommended)** (Claude Code: the AskUserQuestion tool).
 
 When reporting back, list the findings, what you fixed, and what you left and why; then ask the parked questions.
+
+## Commit gate
+
+Every `git commit` waits for the user's go-ahead, including commits a skill tells you to make. Before committing, show the files and the commit message for each planned commit, then ask in the same multiple-choice format as parked questions: your recommended option first, marked **(Recommended)**, e.g. commit as shown / reword or split / hold off. Commit only on an answer that says to; it covers the commits you showed, not later ones.

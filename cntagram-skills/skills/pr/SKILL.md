@@ -14,7 +14,7 @@ Write every PR body in the team format below, in Thai, with code identifiers lef
 ```markdown
 Refs #<issue>
 
-> PR นี้เป็นฝั่ง Backend ส่วน Frontend (@<owner>) จะเปิด PR แยกจาก `develop` หลัง PR นี้ merge แล้ว และใส่ `Closes #<issue>`
+> PR นี้เป็นฝั่ง Backend ส่วน Frontend (@<owner>) จะเปิด PR แยกจาก `main` หลัง PR นี้ merge แล้ว และใส่ `Closes #<issue>`
 
 ## Summary of Changes (Backend)
 <one sentence: what the user can now do>
@@ -63,7 +63,7 @@ Turn `code-review` findings into one review comment, in Thai, shaped like the re
 <one or two lines: what already works, and whether it can merge>
 
 > เลขบรรทัดอ้างอิง commit `<head sha>`
-> <test count on the branch, and on the tree merged with `develop`>
+> <test count on the branch, and on the tree merged with `main`>
 > โค้ดในหัวข้อ **แก้:** เป็นคำแนะนำในการแก้ ถ้ามีวิธีอื่นที่ได้ผลเดียวกันก็ใช้ได้เลยครับ
 
 ## ต้องแก้ก่อน merge
