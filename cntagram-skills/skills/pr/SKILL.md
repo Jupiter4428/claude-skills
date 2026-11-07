@@ -90,7 +90,7 @@ Turn `code-review` findings into one review comment, in Thai, shaped like the re
 - Plain Thai headings and wording; review jargon ("blocking", "nit", "ฝากไว้") becomes what it means for the author.
 - A finding the user defers gets a real issue first (milestone and assignee as the user says), then appears only in the last section as `#N` plus one line. Every deferred finding links to its issue number.
 - A finding the user drops leaves the draft entirely.
-- Draft to the scratchpad; post with `gh pr review <n> --request-changes|--comment --body-file` once the user says to. To replace your earlier review, overwrite its body instead: `gh api -X PUT repos/{owner}/{repo}/pulls/<n>/reviews/<review id> -F body=@<file>`.
+- Draft to the scratchpad; post with `gh pr review <n> --request-changes|--comment --body-file` once the user says to. Right before posting, list the reviews again and look for one on the same head commit posted while you drafted; if one exists, show it to the user and let them choose which review to keep before you post. To replace your earlier review, overwrite its body instead: `gh api -X PUT repos/{owner}/{repo}/pulls/<n>/reviews/<review id> -F body=@<file>`.
 
 ## Answering review comments
 
