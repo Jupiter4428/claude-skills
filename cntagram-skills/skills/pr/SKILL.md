@@ -57,44 +57,75 @@ Refs #<issue>
 
 First read the PR's earlier reviews (`gh pr view <n> --json reviews`). Each finding carries an earlier round's call forward: one already marked "ไม่ต้องแก้ใน PR นี้" stays there, and reversing a call means saying so in the finding, with the reason.
 
-Turn `code-review` findings into one review comment, in Thai, shaped like the reviews on #49 and #56 (`gh pr view <n> --json reviews`):
+Turn `code-review` findings into one review comment, in Thai, shaped like the reviews on #49, #56, #126, #137, and #191 (`gh pr view <n> --json reviews`):
 
 ```markdown
 <one or two lines: what already works, and whether it can merge>
 
 > เลขบรรทัดอ้างอิง commit `<head sha>`
-> <test count on the branch, and on the tree merged with `main`>
+> `python manage.py test <app>` <N> tests OK และทั้งโปรเจกต์ <M> tests OK (ระบุสถานะเทียบกับ main)
 > โค้ดในหัวข้อ **แก้:** เป็นคำแนะนำในการแก้ ถ้ามีวิธีอื่นที่ได้ผลเดียวกันก็ใช้ได้เลยครับ
 
 ## ต้องแก้ก่อน merge
 ### 1. `<file>` L<start>–<end>: <what is wrong, in a few words>
 <the current code, quoted>
-<why it matters: the rule broken or the input that breaks it>
+<why it matters: the rule broken, AC unmet, or the input that breaks it>
 
 **แก้:**
 <the fix as code>
 
-## ควรแก้
+## ควรแก้ (หรือ แนะนำ (ไม่ต้องแก้ก่อน merge))
 ### `<file>` L<n>: <title>   (same shape, unnumbered)
 ## Test ที่ยังขาด (`<tests file>`)
-## คำแนะนำในการเขียนโค้ด
+### <สิ่งที่ยังไม่มีเทสต์รองรับ เช่น ป้องกัน regression หรือเช็ก AC>
+<คำอธิบาย>
+
+**แก้:**
+```python
+<ตัวอย่าง test case ที่พร้อมใช้>
+```
+## คำแนะนำในการเขียนโค้ด (Nits / Code style / เล็กๆ น้อยๆ)
+- `<file>` L<line>: <PEP 8, whitespace, unused import, หรือ refactoring เล็กๆ>
+- PR body: <การปรับปรุง checklist หรือรายละเอียดใน PR body ให้ตรงตาม CONTRIBUTING>
 ## เปิด issue แยกไว้แล้ว (ไม่ต้องทำใน PR นี้)
+- #<issue>: <สรุป 1 บรรทัดสำหรับสิ่งที่เปิด issue แยกไปทำภายหลัง>
 
 ---
 ย้ำอีกครั้ง: ทุก **แก้:** ในรีวิวนี้เป็นคำแนะนำในการแก้ ไม่ต้องทำตามทุกบรรทัด ขอแค่ปัญหาของแต่ละข้อหายไป
 ```
 
+- **Tone & opening**: Open with polite acknowledgement, highlighting what works and which ACs pass before stating blockers.
 - Every finding names a file and line at the pinned commit, and every blocker or ควรแก้ finding carries a **แก้:** block with code; drop a section left empty.
 - Every review opens and closes with the line that the **แก้:** code is a suggestion (the last line of the blockquote, and the closing line after `---`), so the author reads the fixes as advice before and after the findings.
-
+- **Test gaps**: When AC or regression prevention lacks test coverage, write the exact test in `## Test ที่ยังขาด`.
+- **Nits & formatting**: Minor issues (PEP 8 spacing, unused imports, duplicate CSS properties, PR body checklist) go under `## คำแนะนำในการเขียนโค้ด` as bullets without blocking merge.
 - Plain Thai headings and wording; review jargon ("blocking", "nit", "ฝากไว้") becomes what it means for the author.
 - A finding the user defers gets a real issue first (milestone and assignee as the user says), then appears only in the last section as `#N` plus one line. Every deferred finding links to its issue number.
 - A finding the user drops leaves the draft entirely.
 - Draft to the scratchpad; post with `gh pr review <n> --request-changes|--comment --body-file` once the user says to. Right before posting, list the reviews again and look for one on the same head commit posted while you drafted; if one exists, show it to the user and let them choose which review to keep before you post. To replace your earlier review, overwrite its body instead: `gh api -X PUT repos/{owner}/{repo}/pulls/<n>/reviews/<review id> -F body=@<file>`.
 
-## Answering review comments
+## Health check & test reporting comments
+
+When performing or reporting a CI/health check on a PR branch (like PR #198 and #200):
+
+```markdown
+ตรวจสอบงาน #<issue> บน branch `<branch>` (commit `<short-sha>`): `black --check <app>` ผ่าน, `flake8 <app>` ผ่าน, `python manage.py check` ผ่าน (0 issues), `python manage.py test <app> --noinput` ผ่าน **X/X tests** (XX.XXX วินาที)
+
+<if failures found, isolate flaky vs regression, test against main before blaming the PR, and report evidence objectively>
+```
+
+- Report real command outputs, test count, timing, and commit SHA.
+- Distinguish flaky tests from true regressions by comparing against `main` before jumping to conclusions.
+
+## Answering review comments & author updates
+
+When updating a PR after review feedback (like PR #137, #191, and #200):
 
 1. Read every comment: `gh pr view <n> --json comments,reviews`, plus inline ones via `gh api repos/{owner}/{repo}/pulls/<n>/comments`.
 2. Before applying a reviewer's suggestion, trace what it does to behaviour. A suggestion can change meaning while sounding equivalent: `request.user.is_superuser` is not the `super_admin` role in `UserRole`. When it does, take the option that keeps behaviour and say why in the reply.
-3. Rerun the tests on `HEAD` after the last commit or merge, and put that real count in the reply, the same as the **ทดสอบ** rule. A count copied from an earlier comment goes stale.
-4. Reply in Thai with `gh pr comment <n> --body-file`: what changed, which suggestion you took or declined and why, and what other branches must change when this merges.
+3. Rerun the tests on `HEAD` after the last commit or merge, and put that real count in the reply, the same as the **วิธีทดสอบ** rule. A count copied from an earlier comment goes stale.
+4. Reply in Thai with `gh pr comment <n> --body-file` following this structure:
+   - **Bullet list of what changed**: address each review feedback item (architecture, refactor, UI, tests).
+   - **Evidence & test results**: lint/format status, `python manage.py test` count and execution time, and screenshots/artifacts if visual.
+   - **Commit SHA**: reference the latest pushed commit SHA.
+   - **Next steps & polite handoff**: state remaining DoD items (e.g. peer approval) and invite re-review.
