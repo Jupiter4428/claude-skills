@@ -50,3 +50,10 @@ When reporting back, list the findings, what you fixed, and what you left and wh
 ## Commit gate
 
 Every `git commit` waits for the user's go-ahead, including commits a skill tells you to make. Before committing, show the files and the commit message for each planned commit, then ask in the same multiple-choice format as parked questions: your recommended option first, marked **(Recommended)**, e.g. commit as shown / reword or split / hold off. Commit only on an answer that says to; it covers the commits you showed, not later ones.
+
+
+## Style & Identity Guidelines
+
+- Do not use emojis in any responses, commits, documentation, or code comments.
+- Do not mention or include your assistant name in any outputs.
+
